@@ -70,8 +70,14 @@ PATH
       addressable
       aws-sdk-s3 (~> 1.91)
       aws-sdk-secretsmanager (~> 1.46)
+<<<<<<< HEAD
       chef-config (= 18.0.19)
       chef-utils (= 18.0.19)
+=======
+      chef-config (= 18.0.9)
+      chef-powershell (~> 1.0.12)
+      chef-utils (= 18.0.9)
+>>>>>>> b3c28fb951 (Update Chef Client to retrieve client.pem from Windows CertStore)
       chef-vault
       chef-zero (>= 14.0.11)
       corefoundation (~> 0.3.4)
@@ -164,7 +170,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.4)
     byebug (11.1.3)
-    chef-powershell (1.0.7)
+    chef-powershell (1.0.11)
       ffi (~> 1.15)
       ffi-yajl (~> 2.4)
     chef-telemetry (1.1.1)
