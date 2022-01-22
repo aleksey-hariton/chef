@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/chef/omnibus-software.git
-  revision: c2fb9a4c75a03460a5c69f805bcec5b5e9ddde0a
+  revision: b646beda0dfb54efc14b0348cebd5de830cf2127
   branch: main
   specs:
     omnibus-software (4.0.0)
@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/chef/omnibus.git
-  revision: 9c83f73fe081e6fa001c8fbee9688f87a57f90f0
-  branch: main
+  revision: 09ef89731702578b44647780b61ca84027619cc5
+  branch: lcg/better-healthcheck-correctness-checking
   specs:
-    omnibus (8.2.9)
+    omnibus (8.2.7)
       aws-sdk-s3 (~> 1)
       chef-cleanroom (~> 1.0)
       chef-utils (>= 15.4)
@@ -42,7 +42,7 @@ GEM
     aws-sdk-kms (1.53.0)
       aws-sdk-core (~> 3, >= 3.125.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.111.1)
+    aws-sdk-s3 (1.111.2)
       aws-sdk-core (~> 3, >= 3.125.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -167,7 +167,7 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
     contracts (0.16.1)
-    corefoundation (0.3.4)
+    corefoundation (0.3.10)
       ffi (>= 1.15.0)
     diff-lcs (1.3)
     ed25519 (1.3.0)
