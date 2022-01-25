@@ -54,7 +54,12 @@ describe "chef-client" do
 
   def remove_certificate_from_store
     powershell_exec! <<~EOH
+    Try {
       Get-ChildItem -path cert:\\LocalMachine\\My -Recurse -Force  | Where-Object { $_.Subject -Match "#{client_name}" } -ErrorAction Stop | Remove-Item
+    }
+    Catch {
+      return $false
+    }
     EOH
   end
 
@@ -191,31 +196,30 @@ describe "chef-client" do
       result.error!
     end
 
-    if ChefUtils.windows?
-      context "and the private key is in the Windows CertStore" do
-        before do
-          # install the p12/pfx and make sure the key and password are stored in the registry
-          install_certificate_in_store
-          create_registry_key
-        end
 
-        after do
-          # remove the p12/pfx and remove the registry key
-          remove_certificate_from_store
-          remove_registry_key
-        end
+    context "and the private key is in the Windows CertStore", :windows_only do
+      before do
+        # install the p12/pfx and make sure the key and password are stored in the registry
+        install_certificate_in_store
+        create_registry_key
+      end
 
-        it "should verify that the cert is loaded in the LocalMachine\\My" do
-          expect(Chef::HTTP::Authenticator.check_certstore_for_key(client_name)).to eq(true)
-        end
+      after do
+        # remove the p12/pfx and remove the registry key
+        remove_certificate_from_store
+        remove_registry_key
+      end
 
-        it "should verify that the export password for the pfx is loaded in the Registry" do
-          expect(verify_export_password_exists.result).to eq(true)
-        end
+      it "should verify that the cert is loaded in the LocalMachine\\My" do
+        expect(Chef::HTTP::Authenticator.check_certstore_for_key(client_name)).to eq(true)
+      end
 
-        it "should verify that a private key is returned to me" do
-          expect(Chef::HTTP::Authenticator.retrieve_certificate_key(client_name)).not_to be_falsey
-        end
+      it "should verify that the export password for the pfx is loaded in the Registry" do
+        expect(verify_export_password_exists.result).to eq(true)
+      end
+
+      it "should verify that a private key is returned to me" do
+        expect(Chef::HTTP::Authenticator.retrieve_certificate_key(client_name)).not_to be_falsey
       end
     end
 
