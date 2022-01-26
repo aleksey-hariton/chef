@@ -196,7 +196,6 @@ describe "chef-client" do
       result.error!
     end
 
-
     context "and the private key is in the Windows CertStore", :windows_only do
       before do
         # install the p12/pfx and make sure the key and password are stored in the registry
